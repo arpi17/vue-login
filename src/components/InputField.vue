@@ -4,13 +4,15 @@
     <input
       :id="label"
       class="form-control"
-      :class="{'is-invalid': error}"
+      :class="{ 'is-invalid': error }"
       :value="value"
       :type="type"
       :placeholder="placeholder"
       @input="$emit('input', $event.target.value)"
-    >
-    <small v-show="error" :class="{'invalid-feedback': error}">{{error}}</small>
+    />
+    <small v-show="error" :class="{ 'invalid-feedback': error }">{{
+      error
+    }}</small>
   </div>
 </template>
 
