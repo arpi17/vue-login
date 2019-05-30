@@ -50,6 +50,7 @@ const actions = {
   },
   logoutUser({ commit }) {
     commit('setCurrentUser', {});
+    router.push('/');
   }
 };
 
