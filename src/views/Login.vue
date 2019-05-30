@@ -34,7 +34,7 @@
 
 <script>
 import axios from "axios";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import InputField from "@/components/InputField.vue";
 
 export default {
@@ -52,7 +52,11 @@ export default {
     ...mapGetters(["getErrors"])
   },
   methods: {
+    ...mapMutations(["clearErrors"]),
     ...mapActions(["loginUser"])
+  },
+  beforeMount() {
+    this.clearErrors();
   },
   mounted() {
     this.$refs.autofocus.$el.querySelector("input").focus();

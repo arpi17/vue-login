@@ -19,6 +19,9 @@ const mutations = {
   setErrors(state, newErrors) {
     state.errors = newErrors;
   },
+  clearErrors(state) {
+    state.errors = {};
+  },
   setCurrentUser(state, user) {
     state.currentUser = user;
   }
@@ -28,9 +31,10 @@ const actions = {
   async registerUser({ commit }, userData) {
     try {
       const { data } = await axios.post('/users/register', userData);
-      // if (data.success) {
-      //   router.push('/');
-      // }
+      console.log(data);
+      if (data.success) {
+        router.push('/');
+      }
     } catch (err) {
       commit('setErrors', err.response.data);
     }
@@ -39,9 +43,13 @@ const actions = {
     try {
       const { data } = await axios.post('/users/login', creds);
       commit('setCurrentUser', data);
+      router.push('/dashboard');
     } catch (err) {
       commit('setErrors', err.response.data);
     }
+  },
+  logoutUser({ commit }) {
+    commit('setCurrentUser', {});
   }
 };
 

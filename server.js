@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const keys = require('./config/keys');
 
 const app = express();
 
@@ -46,7 +48,7 @@ app.post('/users/register', validateRegistration, (req, res) => {
       bcrypt.hash(newUser.password, salt, (err, hash) => {
         if (err) throw err;
         newUser.password = hash;
-        newUser.save().then(user => res.json(user));
+        newUser.save().then(() => res.json({ success: true }));
       });
     });
   });
@@ -63,9 +65,14 @@ app.post('/users/login', validateLogin, (req, res) => {
       if (!isCorrect) {
         req.errors.password = 'Incorrect password';
         return res.status(400).json(req.errors);
-      } else {
-        return res.json({ user: user.username });
       }
+      const payload = {
+        id: user._id,
+        username: user.username
+      };
+      jwt.sign(payload, keys.secretOrKey, { expiresIn: '1h' }, (err, token) => {
+        return res.json({ user: user.username, token });
+      });
     });
   });
 });
