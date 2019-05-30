@@ -1,7 +1,7 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-const bcrypt = require("bcryptjs");
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 
@@ -10,49 +10,59 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // User Model
-const User = require("./UserModel");
+const User = require('./UserModel');
+
+// Validators
+const validateRegistration = require('./validators/register');
+const validateLogin = require('./validators/login');
 
 mongoose
-  .connect(require("./config/keys").mongoURI, { useNewUrlParser: true })
-  .then(() => console.log("MongoDB connected"))
+  .connect(require('./config/keys').mongoURI, { useNewUrlParser: true })
+  .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
 // Routes
 
-app.get("/users", (req, res) => {
+app.get('/users', (req, res) => {
   User.find()
     .then(users => res.json(users))
     .catch(err => console.log(err));
 });
 
-app.post("/users/register", (req, res) => {
+app.post('/users/register', validateRegistration, (req, res) => {
   const { username, password } = req.body;
-  const newUser = new User({
-    username,
-    password
-  });
+  User.findOne({ username }).then(user => {
+    if (user) {
+      req.errors.username = 'Username is already taken';
+      return res.status(400).json(req.errors);
+    }
 
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
-      if (err) throw err;
-      newUser.password = hash;
-      newUser
-        .save()
-        .then(user => res.json(user))
-        .catch(err => console.log(err));
+    const newUser = new User({
+      username,
+      password
+    });
+
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if (err) throw err;
+        newUser.password = hash;
+        newUser.save().then(user => res.json(user));
+      });
     });
   });
 });
 
-app.post("/users/login", (req, res) => {
+app.post('/users/login', validateLogin, (req, res) => {
   const { username, password } = req.body;
   User.findOne({ username }).then(user => {
     if (!user) {
-      return res.status(404).json({ username: "User not found" });
+      req.errors.username = 'User not found';
+      return res.status(404).json(req.errors);
     }
     bcrypt.compare(password, user.password).then(isCorrect => {
       if (!isCorrect) {
-        return res.status(400).json({ password: "Incorrect password" });
+        req.errors.password = 'Incorrect password';
+        return res.status(400).json(req.errors);
       } else {
         return res.json({ user: user.username });
       }

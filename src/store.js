@@ -27,10 +27,12 @@ const mutations = {
 const actions = {
   async registerUser({ commit }, userData) {
     try {
-      axios.post('/users/register', userData);
-      router.push('/');
+      const { data } = await axios.post('/users/register', userData);
+      // if (data.success) {
+      //   router.push('/');
+      // }
     } catch (err) {
-      commit('setErrors', err.response);
+      commit('setErrors', err.response.data);
     }
   },
   async loginUser({ commit }, creds) {

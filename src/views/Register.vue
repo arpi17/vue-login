@@ -4,12 +4,13 @@
       <h1 class="my-4">Create an account</h1>
       <div class="card mx-auto" style="width: 280px">
         <div class="card-body">
-          <form @submit.prevent="registerUser({ username, password })">
+          <form @submit.prevent="registerUser({ username, password, password2 })">
             <InputField
               v-model="username"
               type="text"
               placeholder="Enter username"
               label="Username"
+              :error="getErrors.username"
               ref="autofocus"
             />
             <InputField
@@ -17,12 +18,14 @@
               type="password"
               placeholder="Enter password"
               label="Password"
+              :error="getErrors.password"
             />
             <InputField
               v-model="password2"
               type="password"
               placeholder="Confirm password"
               label="Password again"
+              :error="getErrors.password2"
             />
             <button class="btn btn-primary">Sign up</button>
           </form>
@@ -38,7 +41,7 @@
 
 <script>
 import axios from "axios";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import InputField from "@/components/InputField.vue";
 
 export default {
@@ -52,6 +55,9 @@ export default {
       password: "",
       password2: ""
     };
+  },
+  computed: {
+    ...mapGetters(["getErrors"])
   },
   methods: {
     ...mapActions(["registerUser"])
