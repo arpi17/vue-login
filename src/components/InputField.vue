@@ -10,9 +10,12 @@
       :placeholder="placeholder"
       @input="$emit('input', $event.target.value)"
     />
-    <small v-show="error" :class="{ 'invalid-feedback': error }">{{
-      error
-    }}</small>
+    <small
+      :class="{ 'invalid-feedback': error }"
+      :style="{ visibility: error ? 'visible' : 'hidden' }"
+    >
+      {{ error }}
+    </small>
   </div>
 </template>
 

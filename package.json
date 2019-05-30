@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "core-js": "^2.6.5",
     "express": "^4.17.1",
+    "lodash.isempty": "^4.4.0",
     "mongoose": "^5.5.11",
+    "validator": "^11.0.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"

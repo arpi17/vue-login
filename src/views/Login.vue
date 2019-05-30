@@ -4,12 +4,13 @@
       <h1 class="my-4">Sign in</h1>
       <div class="card mx-auto" style="width: 280px">
         <div class="card-body">
-          <form @submit.prevent="$emit">
+          <form @submit.prevent="loginUser({ username, password })">
             <InputField
               v-model="username"
               type="text"
               placeholder="Enter username"
               label="Username"
+              :error="getErrors.username"
               ref="autofocus"
             />
             <InputField
@@ -17,7 +18,7 @@
               type="password"
               placeholder="Enter password"
               label="Password"
-              error="Incorrect password"
+              :error="getErrors.password"
             />
             <button class="btn btn-primary">Sign in</button>
           </form>
@@ -32,7 +33,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import axios from "axios";
+import { mapGetters, mapActions } from "vuex";
 import InputField from "@/components/InputField.vue";
 
 export default {
@@ -45,6 +47,12 @@ export default {
       username: "",
       password: ""
     };
+  },
+  computed: {
+    ...mapGetters(["getErrors"])
+  },
+  methods: {
+    ...mapActions(["loginUser"])
   },
   mounted() {
     this.$refs.autofocus.$el.querySelector("input").focus();
