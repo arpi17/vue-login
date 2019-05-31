@@ -21,7 +21,7 @@ const validateLogin = require('./validators/login');
 
 // Connect to database
 mongoose
-  .connect(require('./config/keys').mongoURI)
+  .connect(require('./config/keys').mongoURI, { useNewUrlParser: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
