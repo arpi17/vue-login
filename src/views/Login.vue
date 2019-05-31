@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 import InputField from "@/components/InputField.vue";
 

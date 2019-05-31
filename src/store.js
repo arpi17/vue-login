@@ -31,7 +31,6 @@ const actions = {
   async registerUser({ commit }, userData) {
     try {
       const { data } = await axios.post('/users/register', userData);
-      console.log(data);
       if (data.success) {
         router.push('/');
       }
