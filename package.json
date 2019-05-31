@@ -7,7 +7,7 @@
     "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --only=dev && npm run build"
   },
   "dependencies": {
     "axios": "^0.18.0",
