@@ -1,6 +1,6 @@
 # Vue Login
 
-Login and Register forms built with Vue.js, Vuex, Vue-Router and Bootstrap
+Login and Register forms built with Vue.js, Vuex, Vue Router and Bootstrap
 
 ## Scripts
 
@@ -13,7 +13,7 @@ Login and Register forms built with Vue.js, Vuex, Vue-Router and Bootstrap
 
 ### Note for using your own keys
 
-If you'd like to use your own keys cretea a file `config/keys_dev.js` with the following content
+If you'd like to use your own keys create a file `config/keys_dev.js` with the following content
 
 ```
 module.exports = {
