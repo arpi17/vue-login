@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "server": "node server",
-    "serve": "./node_modules/\\@vue/cli-service/bin/vue-cli-service.js serve --open",
-    "build": "./node_modules/\\@vue/cli-service/bin/vue-cli-service.js build",
-    "lint": "./node_modules/\\@vue/cli-service/bin/vue-cli-service.js lint",
+    "server": "nodemon server",
+    "start": "vue-cli-service serve --open",
+    "dev": "concurrently \"yarn server\" \"yarn start\"",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "dependencies": {
@@ -29,8 +30,10 @@
     "@vue/cli-service": "^3.8.0",
     "@vue/eslint-config-prettier": "^4.0.1",
     "babel-eslint": "^10.0.1",
+    "concurrently": "^4.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "nodemon": "^1.19.1",
     "vue-template-compiler": "^2.6.10"
   }
 }
