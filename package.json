@@ -8,10 +8,11 @@
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
-    "client": "./node_modules/\\@vue/cli-service/bin/vue-cli-service.js serve --open",
+    "client": "vue-cli-service serve --open",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
-    "build": "./node_modules/\\@vue/cli-service/bin/vue-cli-service.js build",
-    "lint": "./node_modules/\\@vue/cli-service/bin/vue-cli-service.js lint"
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "heroku-postbuild": "YARN_PRODUCTION=false yarn install && yarn build"
   },
   "dependencies": {
     "axios": "^0.18.0",

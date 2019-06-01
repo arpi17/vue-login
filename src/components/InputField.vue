@@ -9,13 +9,11 @@
       :type="type"
       :placeholder="placeholder"
       @input="$emit('input', $event.target.value)"
-    />
+    >
     <small
       :class="{ 'invalid-feedback': error }"
       :style="{ visibility: error ? 'visible' : 'hidden' }"
-    >
-      {{ error }}
-    </small>
+    >{{ error }}</small>
   </div>
 </template>
 
