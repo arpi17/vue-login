@@ -80,7 +80,7 @@ app.post('/users/login', validateLogin, (req, res) => {
 
 // Serve static assets
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('dist'));
+  app.use(express.static(__dirname + '/dist/'));
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
   });
