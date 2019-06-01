@@ -9,11 +9,10 @@
       :type="type"
       :placeholder="placeholder"
       @input="$emit('input', $event.target.value)"
-    >
-    <small
-      :class="{ 'invalid-feedback': error }"
-      :style="{ visibility: error ? 'visible' : 'hidden' }"
-    >{{ error }}</small>
+    />
+    <small v-show="error" :class="{ 'invalid-feedback': error }">{{
+      error
+    }}</small>
   </div>
 </template>
 
@@ -21,9 +20,15 @@
 export default {
   name: "InputField",
   props: {
-    value: String,
+    value: {
+      type: String,
+      required: true
+    },
     type: String,
-    label: String,
+    label: {
+      type: String,
+      required: true
+    },
     error: String,
     placeholder: String
   }

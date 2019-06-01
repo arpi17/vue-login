@@ -1,7 +1,7 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import axios from 'axios';
-import router from './router';
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
+import router from "./router";
 
 Vue.use(Vuex);
 
@@ -30,26 +30,26 @@ const mutations = {
 const actions = {
   async registerUser({ commit }, userData) {
     try {
-      const { data } = await axios.post('/users/register', userData);
+      const { data } = await axios.post("/users/register", userData);
       if (data.success) {
-        router.push('/');
+        router.push("/");
       }
     } catch (err) {
-      commit('setErrors', err.response.data);
+      commit("setErrors", err.response.data);
     }
   },
   async loginUser({ commit }, creds) {
     try {
-      const { data } = await axios.post('/users/login', creds);
-      commit('setCurrentUser', data);
-      router.push('/dashboard');
+      const { data } = await axios.post("/users/login", creds);
+      commit("setCurrentUser", data);
+      router.push("/dashboard");
     } catch (err) {
-      commit('setErrors', err.response.data);
+      commit("setErrors", err.response.data);
     }
   },
   logoutUser({ commit }) {
-    commit('setCurrentUser', {});
-    router.push('/');
+    commit("setCurrentUser", {});
+    router.push("/");
   }
 };
 

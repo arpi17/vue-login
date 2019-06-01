@@ -1,10 +1,10 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const keys = require('./config/keys');
-const path = require('path');
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const keys = require("./config/keys");
+const path = require("path");
 
 const app = express();
 
@@ -13,30 +13,30 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // User Model
-const User = require('./UserModel');
+const User = require("./UserModel");
 
 // Validators
-const validateRegistration = require('./validators/register');
-const validateLogin = require('./validators/login');
+const validateRegistration = require("./validators/register");
+const validateLogin = require("./validators/login");
 
 // Connect to database
 mongoose
-  .connect(require('./config/keys').mongoURI, { useNewUrlParser: true })
-  .then(() => console.log('MongoDB connected'))
+  .connect(require("./config/keys").mongoURI, { useNewUrlParser: true })
+  .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
 // Routes
-app.get('/users', (req, res) => {
+app.get("/users", (req, res) => {
   User.find()
     .then(users => res.json(users))
     .catch(err => console.log(err));
 });
 
-app.post('/users/register', validateRegistration, (req, res) => {
+app.post("/users/register", validateRegistration, (req, res) => {
   const { username, password } = req.body;
   User.findOne({ username }).then(user => {
     if (user) {
-      req.errors.username = 'Username is already taken';
+      req.errors.username = "Username is already taken";
       return res.status(400).json(req.errors);
     }
 
@@ -55,23 +55,23 @@ app.post('/users/register', validateRegistration, (req, res) => {
   });
 });
 
-app.post('/users/login', validateLogin, (req, res) => {
+app.post("/users/login", validateLogin, (req, res) => {
   const { username, password } = req.body;
   User.findOne({ username }).then(user => {
     if (!user) {
-      req.errors.username = 'User not found';
+      req.errors.username = "User not found";
       return res.status(404).json(req.errors);
     }
     bcrypt.compare(password, user.password).then(isCorrect => {
       if (!isCorrect) {
-        req.errors.password = 'Incorrect password';
+        req.errors.password = "Incorrect password";
         return res.status(400).json(req.errors);
       }
       const payload = {
         id: user._id,
         username: user.username
       };
-      jwt.sign(payload, keys.secretOrKey, { expiresIn: '1h' }, (err, token) => {
+      jwt.sign(payload, keys.secretOrKey, { expiresIn: "1h" }, (err, token) => {
         return res.json({ user: user.username, token });
       });
     });
@@ -79,10 +79,10 @@ app.post('/users/login', validateLogin, (req, res) => {
 });
 
 // Serve static assets
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('dist'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("dist"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "dist", "index.html"));
   });
 }
 

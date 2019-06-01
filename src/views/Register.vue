@@ -4,7 +4,9 @@
       <h1 class="my-4">Create an account</h1>
       <div class="card mx-auto" style="width: 280px">
         <div class="card-body">
-          <form @submit.prevent="registerUser({ username, password, password2 })">
+          <form
+            @submit.prevent="registerUser({ username, password, password2 })"
+          >
             <InputField
               v-model="username"
               type="text"
