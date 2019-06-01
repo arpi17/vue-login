@@ -1,6 +1,6 @@
 # Vue Login
 
-Login and Register forms built with Vue.js, Bootstrap, Express and MongoDB
+Login and Register forms built with Vue.js, Bootstrap, Express and MongoDB. Try the latest version [here](https://login-vue.herokuapp.com/)
 
 ## Scripts
 
