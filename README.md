@@ -5,9 +5,9 @@ Login and Register forms built with Vue.js, Bootstrap, Express and MongoDB
 ## Scripts
 
 - `yarn install`: project setup
-- `yarn start`: compiles and hot-reloads for development
 - `yarn server`: runs Express backend and connects to MongoDB
-- `yarn dev`: runs `yarn start` and `yarn server` concurrenlty
+- `yarn client`: compiles and hot-reloads client-side for development
+- `yarn dev`: runs `yarn server` and `yarn client` concurrenlty
 - `yarn build`: compiles and minifies for production
 - `yarn lint`: lints and fixes files
 
