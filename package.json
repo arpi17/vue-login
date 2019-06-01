@@ -2,13 +2,16 @@
   "name": "vue-login",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "yarn": "1.x"
+  },
   "scripts": {
     "start": "node server",
     "server": "nodemon server",
-    "client": "vue-cli-service serve --open",
+    "client": "./node_modules/\\@vue/cli-service/bin/vue-cli-service.js serve",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "build": "./node_modules/\\@vue/cli-service/bin/vue-cli-service.js build",
+    "lint": "./node_modules/\\@vue/cli-service/bin/vue-cli-service.js lint",
     "heroku-postbuild": "YARN_PRODUCTION=false yarn install && yarn build"
   },
   "dependencies": {
