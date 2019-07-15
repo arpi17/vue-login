@@ -23,7 +23,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash.isempty": "^4.4.0",
     "mongoose": "^5.5.14",
-    "validator": "^11.0.0",
+    "validator": "^11.1.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
